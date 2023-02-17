@@ -26,6 +26,17 @@ public class Cursor implements KeyboardHandler {
         cursor.fill();
     }
 
+    public void makeRectanglePainted(){
+        System.out.println("INSIDE makeRectanglePainted");
+        int x = cursor.getX();
+        System.out.println(x);
+        int y = cursor.getY();
+        System.out.println(y);
+        Cell currentCell = Game.cellsBoard[x][y];
+        currentCell.getCell().setColor(Color.PINK);
+        currentCell.getCell().fill();
+    }
+
     private void keyboardInit() {
         Keyboard keyboard = new Keyboard(this);
 
@@ -45,10 +56,15 @@ public class Cursor implements KeyboardHandler {
         upPressed.setKey(KeyboardEvent.KEY_UP);
         upPressed.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
+        KeyboardEvent savedPressed = new KeyboardEvent();
+        upPressed.setKey(KeyboardEvent.KEY_S);
+        upPressed.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+
         keyboard.addEventListener(rightPressed);
         keyboard.addEventListener(leftPressed);
         keyboard.addEventListener(downPressed);
         keyboard.addEventListener(upPressed);
+        keyboard.addEventListener(savedPressed);
     }
 
     @Override
@@ -62,7 +78,7 @@ public class Cursor implements KeyboardHandler {
 
         if (cursor.getX() > Grid.PADDING) {
             if (keyboardEvent.getKey() == KeyboardEvent.KEY_LEFT) {
-                cursor.translate(- Cell.CELL_SIZE, 0);
+                cursor.translate(-Cell.CELL_SIZE, 0);
             }
         }
 
@@ -74,8 +90,17 @@ public class Cursor implements KeyboardHandler {
 
         if (cursor.getY() > Grid.PADDING) {
             if (keyboardEvent.getKey() == KeyboardEvent.KEY_UP) {
-                cursor.translate(0, - Cell.CELL_SIZE);
+                cursor.translate(0, -Cell.CELL_SIZE);
             }
+        }
+
+        if (keyboardEvent.getKey() == KeyboardEvent.KEY_S) {
+            if (!isPainted) {
+                System.out.println("INSIDE if !ispainted");
+                setPainted(true);
+                makeRectanglePainted();
+            }
+            //setCursorUnpainted();
         }
     }
 

@@ -8,10 +8,12 @@ public class Grid {
     private int width;
     private int height;
     private Rectangle grid;
+    private int cols = 16;
+    private int rows = 16;
 
     public Grid() {
-        this.width = 400;
-        this.height = 400;
+        this.width = cols * Cell.CELL_SIZE;
+        this.height = rows * Cell.CELL_SIZE;
 
         grid = new Rectangle(PADDING, PADDING, this.width, this.height);
 
@@ -24,5 +26,13 @@ public class Grid {
 
     public int getHeight() {
         return height;
+    }
+
+    public int getCols() {
+        return cols;
+    }
+
+    public int getRows() {
+        return rows;
     }
 }

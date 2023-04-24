@@ -29,7 +29,12 @@ public class Cell {
             setPainted(true);
             this.cell.setColor(Color.PINK);
             this.cell.fill();
+            return;
         }
+
+        setPainted(false);
+        this.cell.setColor(Color.BLACK);
+        this.cell.draw();
     }
 
     public void setCellPainted(Cell currentCell) {

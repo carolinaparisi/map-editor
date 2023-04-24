@@ -14,6 +14,7 @@ public class Cell {
     private boolean isPainted;
 
     public Cell(int col, int row) {
+
         this.col = col;
         this.row = row;
 
@@ -24,11 +25,13 @@ public class Cell {
         cell.draw();
     }
 
-    public void setColor() {
+    public void setColorCell(Cursor cursor) {
         if (!isPainted) {
             setPainted(true);
             this.cell.setColor(Color.PINK);
             this.cell.fill();
+
+            cursor.setCursorPaintedMagenta();
             return;
         }
 
@@ -37,8 +40,8 @@ public class Cell {
         this.cell.draw();
     }
 
-    public void setCellPainted(Cell currentCell) {
-        currentCell.setColor();
+    public void setCellPainted(Cell currentCell, Cursor cursor) {
+        currentCell.setColorCell(cursor);
     }
 
     public int getCol() {
@@ -51,5 +54,14 @@ public class Cell {
 
     public void setPainted(boolean painted) {
         isPainted = painted;
+    }
+
+    public void verifyIfCellPainted(Cursor cursor) {
+        if (this.isPainted) {
+            cursor.setCursorPaintedMagenta();
+            return;
+        }
+
+        cursor.setCursorPainted();
     }
 }

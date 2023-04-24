@@ -21,12 +21,16 @@ public class Cursor implements KeyboardHandler {
     }
 
     public void setCursorPainted() {
-        cursor.setColor(Color.PINK);
+        cursor.setColor(Color.CYAN);
+        cursor.fill();
+    }
+
+    public void setCursorPaintedMagenta() {
+        cursor.setColor(Color.MAGENTA);
         cursor.fill();
     }
 
     public void makeRectanglePainted() {
-        System.out.println("INSIDE makeRectanglePainted");
         int x = cursor.getX();
         int y = cursor.getY();
 
@@ -34,7 +38,7 @@ public class Cursor implements KeyboardHandler {
         int row = ((y - 10) / 25);
 
         Cell currentCell = Game.cellsBoard[col][row];
-        currentCell.setCellPainted(currentCell);
+        currentCell.setCellPainted(currentCell, this);
     }
 
     private void keyboardInit() {
@@ -73,30 +77,44 @@ public class Cursor implements KeyboardHandler {
         if (cursor.getX() < grid.getWidth() - Grid.PADDING - Grid.PADDING) {
             if (keyboardEvent.getKey() == KeyboardEvent.KEY_RIGHT) {
                 cursor.translate(Cell.CELL_SIZE, 0);
+                verifyColor();
             }
         }
 
         if (cursor.getX() > Grid.PADDING) {
             if (keyboardEvent.getKey() == KeyboardEvent.KEY_LEFT) {
                 cursor.translate(-Cell.CELL_SIZE, 0);
+                verifyColor();
             }
         }
 
         if (cursor.getY() < grid.getHeight() - Grid.PADDING - Grid.PADDING) {
             if (keyboardEvent.getKey() == KeyboardEvent.KEY_DOWN) {
                 cursor.translate(0, Cell.CELL_SIZE);
+                verifyColor();
             }
         }
 
         if (cursor.getY() > Grid.PADDING) {
             if (keyboardEvent.getKey() == KeyboardEvent.KEY_UP) {
                 cursor.translate(0, -Cell.CELL_SIZE);
+                verifyColor();
             }
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_S) {
             makeRectanglePainted();
         }
+    }
+
+    private void verifyColor() {
+        int x = cursor.getX();
+        int y = cursor.getY();
+        int col = ((x - 10) / 25);
+        int row = ((y - 10) / 25);
+
+        Cell currentCell = Game.cellsBoard[col][row];
+        currentCell.verifyIfCellPainted(this);
     }
 
     @Override

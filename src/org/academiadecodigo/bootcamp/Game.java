@@ -46,8 +46,6 @@ public class Game {
         for (int i = 0; i < this.cols; i++) {
             for (int j = 0; j < this.rows; j++) {
                 Cell currentCell = new Cell(initialCol, initialRow);
-                System.out.println("COL: " + currentCell.getCol());
-                System.out.println("ROW: " + currentCell.getRow());
                 cellsBoard[initialCol][initialRow] = currentCell;
                 initialCol += 1;
             }

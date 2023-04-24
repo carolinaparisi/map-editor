@@ -26,7 +26,7 @@ public class Cursor implements KeyboardHandler {
         cursor.fill();
     }
 
-    public void makeRectanglePainted(){
+    public void makeRectanglePainted() {
         System.out.println("INSIDE makeRectanglePainted");
         int x = cursor.getX();
         System.out.println(x);
@@ -56,21 +56,22 @@ public class Cursor implements KeyboardHandler {
         upPressed.setKey(KeyboardEvent.KEY_UP);
         upPressed.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
+/*
         KeyboardEvent savedPressed = new KeyboardEvent();
         upPressed.setKey(KeyboardEvent.KEY_S);
         upPressed.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+*/
 
         keyboard.addEventListener(rightPressed);
         keyboard.addEventListener(leftPressed);
         keyboard.addEventListener(downPressed);
         keyboard.addEventListener(upPressed);
-        keyboard.addEventListener(savedPressed);
+        //keyboard.addEventListener(savedPressed);
     }
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
         if (cursor.getX() < grid.getWidth() - Grid.PADDING - Grid.PADDING) {
-            System.out.println(cursor.getX());
             if (keyboardEvent.getKey() == KeyboardEvent.KEY_RIGHT) {
                 cursor.translate(Cell.CELL_SIZE, 0);
             }
@@ -84,23 +85,16 @@ public class Cursor implements KeyboardHandler {
 
         if (cursor.getY() < grid.getHeight() - Grid.PADDING - Grid.PADDING) {
             if (keyboardEvent.getKey() == KeyboardEvent.KEY_DOWN) {
+                System.out.println(cursor.getY());
                 cursor.translate(0, Cell.CELL_SIZE);
             }
         }
 
         if (cursor.getY() > Grid.PADDING) {
             if (keyboardEvent.getKey() == KeyboardEvent.KEY_UP) {
+                System.out.println(cursor.getY());
                 cursor.translate(0, -Cell.CELL_SIZE);
             }
-        }
-
-        if (keyboardEvent.getKey() == KeyboardEvent.KEY_S) {
-            if (!isPainted) {
-                System.out.println("INSIDE if !ispainted");
-                setPainted(true);
-                makeRectanglePainted();
-            }
-            //setCursorUnpainted();
         }
     }
 

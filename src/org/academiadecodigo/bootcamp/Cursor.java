@@ -11,7 +11,6 @@ public class Cursor implements KeyboardHandler {
 
     private Rectangle cursor;
     private Grid grid;
-    private boolean isPainted;
 
     public Cursor(int x, int y) {
         cursor = new Rectangle(x, y, Cell.CELL_SIZE, Cell.CELL_SIZE);
@@ -29,12 +28,13 @@ public class Cursor implements KeyboardHandler {
     public void makeRectanglePainted() {
         System.out.println("INSIDE makeRectanglePainted");
         int x = cursor.getX();
-        System.out.println(x);
         int y = cursor.getY();
-        System.out.println(y);
-        Cell currentCell = Game.cellsBoard[x][y];
-        currentCell.getCell().setColor(Color.PINK);
-        currentCell.getCell().fill();
+
+        int col = ((x - 10) / 25);
+        int row = ((y - 10) / 25);
+
+        Cell currentCell = Game.cellsBoard[col][row];
+        currentCell.setCellPainted(currentCell);
     }
 
     private void keyboardInit() {
@@ -56,17 +56,16 @@ public class Cursor implements KeyboardHandler {
         upPressed.setKey(KeyboardEvent.KEY_UP);
         upPressed.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
-/*
         KeyboardEvent savedPressed = new KeyboardEvent();
-        upPressed.setKey(KeyboardEvent.KEY_S);
-        upPressed.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-*/
+        savedPressed.setKey(KeyboardEvent.KEY_S);
+        savedPressed.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+
 
         keyboard.addEventListener(rightPressed);
         keyboard.addEventListener(leftPressed);
         keyboard.addEventListener(downPressed);
         keyboard.addEventListener(upPressed);
-        //keyboard.addEventListener(savedPressed);
+        keyboard.addEventListener(savedPressed);
     }
 
     @Override
@@ -85,28 +84,22 @@ public class Cursor implements KeyboardHandler {
 
         if (cursor.getY() < grid.getHeight() - Grid.PADDING - Grid.PADDING) {
             if (keyboardEvent.getKey() == KeyboardEvent.KEY_DOWN) {
-                System.out.println(cursor.getY());
                 cursor.translate(0, Cell.CELL_SIZE);
             }
         }
 
         if (cursor.getY() > Grid.PADDING) {
             if (keyboardEvent.getKey() == KeyboardEvent.KEY_UP) {
-                System.out.println(cursor.getY());
                 cursor.translate(0, -Cell.CELL_SIZE);
             }
+        }
+
+        if (keyboardEvent.getKey() == KeyboardEvent.KEY_S) {
+            makeRectanglePainted();
         }
     }
 
     @Override
     public void keyReleased(KeyboardEvent keyboardEvent) {
-    }
-
-    public void setPainted(boolean painted) {
-        isPainted = painted;
-    }
-
-    public boolean isPainted() {
-        return isPainted;
     }
 }

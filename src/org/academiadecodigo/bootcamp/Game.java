@@ -5,11 +5,16 @@ public class Game {
     private Grid grid;
     private Cursor cursor;
     public static Cell[][] cellsBoard;
+    private int[][] numbersBoard;
     private int cols;
     private int rows;
 
 
     public Game() {
+
+        TextFile textFile = new TextFile();
+        textFile.createFile();
+
         grid = new Grid();
 
         this.cols = grid.getCols();
@@ -25,20 +30,6 @@ public class Game {
         int numberCellCol = grid.getWidth() / Cell.CELL_SIZE;
         int numberCellRow = grid.getHeight() / Cell.CELL_SIZE;
         cellsBoard = new Cell[numberCellCol][numberCellRow];
-/*
-        int initialX = Grid.PADDING;
-        int initialY = Grid.PADDING;
-
-        for (int i = 0; i < numberCellCol; i++) {
-            for (int j = 0; j < numberCellRow; j++) {
-                Cell currentCell = new Cell(initialX, initialY);
-                initialX += Cell.CELL_SIZE;
-                cellsBoard[i][j] = currentCell;
-            }
-            initialX = Grid.PADDING;
-            initialY += Cell.CELL_SIZE;
-        }
-*/
 
         int initialCol = 0;
         int initialRow = 0;

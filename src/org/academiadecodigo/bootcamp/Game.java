@@ -5,7 +5,6 @@ public class Game {
     private Grid grid;
     private Cursor cursor;
     public static Cell[][] cellsBoard;
-    private int[][] numbersBoard;
     private int cols;
     private int rows;
 

@@ -38,6 +38,7 @@ public class Cell {
         setPainted(false);
         this.cell.setColor(Color.BLACK);
         this.cell.draw();
+        cursor.setCursorPainted();
     }
 
     public void setCellPainted(Cell currentCell, Cursor cursor) {

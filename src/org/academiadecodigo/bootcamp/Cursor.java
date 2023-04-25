@@ -60,15 +60,19 @@ public class Cursor implements KeyboardHandler {
         upPressed.setKey(KeyboardEvent.KEY_UP);
         upPressed.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
+        KeyboardEvent paintPressed = new KeyboardEvent();
+        paintPressed.setKey(KeyboardEvent.KEY_SPACE);
+        paintPressed.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+
         KeyboardEvent savedPressed = new KeyboardEvent();
         savedPressed.setKey(KeyboardEvent.KEY_S);
         savedPressed.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-
 
         keyboard.addEventListener(rightPressed);
         keyboard.addEventListener(leftPressed);
         keyboard.addEventListener(downPressed);
         keyboard.addEventListener(upPressed);
+        keyboard.addEventListener(paintPressed);
         keyboard.addEventListener(savedPressed);
     }
 
@@ -102,7 +106,7 @@ public class Cursor implements KeyboardHandler {
             }
         }
 
-        if (keyboardEvent.getKey() == KeyboardEvent.KEY_S) {
+        if (keyboardEvent.getKey() == KeyboardEvent.KEY_SPACE) {
             makeRectanglePainted();
         }
     }

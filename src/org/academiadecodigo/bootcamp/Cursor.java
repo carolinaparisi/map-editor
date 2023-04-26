@@ -11,6 +11,7 @@ public class Cursor implements KeyboardHandler {
 
     private Rectangle cursor;
     private Grid grid;
+    private TextFile textFile;
 
     public Cursor(int x, int y) {
         cursor = new Rectangle(x, y, Cell.CELL_SIZE, Cell.CELL_SIZE);
@@ -109,6 +110,15 @@ public class Cursor implements KeyboardHandler {
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_SPACE) {
             makeRectanglePainted();
         }
+
+        if (keyboardEvent.getKey() == KeyboardEvent.KEY_S) {
+            saveTheGame(Game.cellsBoard);
+        }
+    }
+
+    private void saveTheGame(Cell[][] cellsBoard) {
+        textFile = new TextFile();
+        textFile.saveGame(cellsBoard);
     }
 
     private void verifyColor() {

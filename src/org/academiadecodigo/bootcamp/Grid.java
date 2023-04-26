@@ -8,8 +8,8 @@ public class Grid {
     private int width;
     private int height;
     private Rectangle grid;
-    private int cols = 16;
-    private int rows = 16;
+    public static int cols = 16;
+    public static int rows = 16;
 
     public Grid() {
         this.width = cols * Cell.CELL_SIZE;

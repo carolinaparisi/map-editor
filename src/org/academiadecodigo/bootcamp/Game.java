@@ -1,5 +1,9 @@
 package org.academiadecodigo.bootcamp;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Game {
 
     private Grid grid;
@@ -7,13 +11,10 @@ public class Game {
     public static Cell[][] cellsBoard;
     private int cols;
     private int rows;
+    private FileReader fileReader;
 
 
     public Game() {
-
-        TextFile textFile = new TextFile();
-        textFile.createFile();
-
         grid = new Grid();
 
         this.cols = grid.getCols();
@@ -23,8 +24,6 @@ public class Game {
     }
 
     private void creatingGrid() {
-        // i = X;
-        // j = Y;
 
         int numberCellCol = grid.getWidth() / Cell.CELL_SIZE;
         int numberCellRow = grid.getHeight() / Cell.CELL_SIZE;
@@ -41,6 +40,25 @@ public class Game {
             }
             initialCol = 0;
             initialRow += 1;
+        }
+    }
+
+    public void creatingGridSaved() {
+        int[][] intCellsBoard = new int[Grid.rows + 1][Grid.cols + 1];
+
+        try {
+            fileReader = new FileReader("resources/saved.txt");
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            System.out.println(bufferedReader.readLine());
+            while (bufferedReader.readLine() != null) {
+                for (int i = 0; i < Grid.rows - 2; i++) {
+                        System.out.println(bufferedReader.readLine());
+                }
+            }
+            bufferedReader.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

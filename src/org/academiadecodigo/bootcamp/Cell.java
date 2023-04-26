@@ -6,6 +6,8 @@ import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 public class Cell {
 
     public static final int CELL_SIZE = 25;
+
+    private int number;
     private int x;
     private int y;
     private int col;
@@ -45,16 +47,12 @@ public class Cell {
         currentCell.setColorCell(cursor);
     }
 
-    public int getCol() {
-        return col;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
     public void setPainted(boolean painted) {
         isPainted = painted;
+    }
+
+    public boolean isPainted() {
+        return isPainted;
     }
 
     public void verifyIfCellPainted(Cursor cursor) {

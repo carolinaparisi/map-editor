@@ -44,18 +44,26 @@ public class Game {
     }
 
     public void creatingGridSaved() {
-        int[][] intCellsBoard = new int[Grid.rows + 1][Grid.cols + 1];
+        int[][] intCellsBoard = new int[Grid.rows][Grid.cols];
 
         try {
             fileReader = new FileReader("resources/saved.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-            System.out.println(bufferedReader.readLine());
+            int c;
+            while((c = bufferedReader.read()) != -1){
+                char character = (char) c;
+                System.out.println(character);
+            }
+
+/*
+            System.out.println("col " + bufferedReader.readLine());
             while (bufferedReader.readLine() != null) {
                 for (int i = 0; i < Grid.rows - 2; i++) {
-                        System.out.println(bufferedReader.readLine());
+                    System.out.println("col " + bufferedReader.readLine());
                 }
             }
+*/
             bufferedReader.close();
         } catch (IOException e) {
             throw new RuntimeException(e);

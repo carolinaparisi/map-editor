@@ -13,10 +13,13 @@ public class Cursor implements KeyboardHandler {
     private Grid grid;
     private TextFile textFile;
 
-    public Cursor(int x, int y) {
+    private Game game;
+
+    public Cursor(int x, int y, Game game) {
         cursor = new Rectangle(x, y, Cell.CELL_SIZE, Cell.CELL_SIZE);
         cursor.draw();
 
+        this.game = game;
         grid = new Grid();
         keyboardInit();
     }
@@ -69,12 +72,17 @@ public class Cursor implements KeyboardHandler {
         savedPressed.setKey(KeyboardEvent.KEY_S);
         savedPressed.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
+        KeyboardEvent loadPressed = new KeyboardEvent();
+        loadPressed.setKey(KeyboardEvent.KEY_L);
+        loadPressed.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+
         keyboard.addEventListener(rightPressed);
         keyboard.addEventListener(leftPressed);
         keyboard.addEventListener(downPressed);
         keyboard.addEventListener(upPressed);
         keyboard.addEventListener(paintPressed);
         keyboard.addEventListener(savedPressed);
+        keyboard.addEventListener(loadPressed);
     }
 
     @Override
@@ -114,6 +122,14 @@ public class Cursor implements KeyboardHandler {
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_S) {
             saveTheGame(Game.cellsBoard);
         }
+
+        if (keyboardEvent.getKey() == KeyboardEvent.KEY_L) {
+            loadTheGame();
+        }
+    }
+
+    private void loadTheGame() {
+        game.loadingGridBoard();
     }
 
     private void saveTheGame(Cell[][] cellsBoard) {

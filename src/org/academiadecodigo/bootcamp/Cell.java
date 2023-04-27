@@ -7,7 +7,6 @@ public class Cell {
 
     public static final int CELL_SIZE = 25;
 
-    private int number;
     private int x;
     private int y;
     private int col;
@@ -62,5 +61,10 @@ public class Cell {
         }
 
         cursor.setCursorPainted();
+    }
+
+    @Override
+    public String toString() {
+        return "cell";
     }
 }

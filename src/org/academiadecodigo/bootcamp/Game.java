@@ -1,8 +1,10 @@
 package org.academiadecodigo.bootcamp;
 
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.LinkedList;
 
 public class Game {
 
@@ -12,23 +14,19 @@ public class Game {
     private int cols;
     private int rows;
     private FileReader fileReader;
+    private final String FILE_PATH = "resources/saved.txt";
 
 
     public Game() {
         grid = new Grid();
 
+        cellsBoard = new Cell[Grid.cols][Grid.rows];
         this.cols = grid.getCols();
         this.rows = grid.getRows();
-
         creatingGrid();
     }
 
     private void creatingGrid() {
-
-        int numberCellCol = grid.getWidth() / Cell.CELL_SIZE;
-        int numberCellRow = grid.getHeight() / Cell.CELL_SIZE;
-        cellsBoard = new Cell[numberCellCol][numberCellRow];
-
         int initialCol = 0;
         int initialRow = 0;
 
@@ -43,35 +41,50 @@ public class Game {
         }
     }
 
-    public void creatingGridSaved() {
-        int[][] intCellsBoard = new int[Grid.rows][Grid.cols];
+    public void start() {
+        cursor = new Cursor(Grid.PADDING, Grid.PADDING, this);
+        cursor.setCursorPainted();
+    }
+
+    public void loadingGridBoard() {
+        LinkedList<String> chars = readFile();
+        int initialCol = 0;
+        int initialRow = 0;
+        int initialChar = 0;
+
+        for (int i = 0; i < Grid.cols; i++) {
+            for (int j = 0; j < Grid.rows; j++) {
+                if (chars.get(initialChar).equals("1")) {
+                    cellsBoard[initialRow][initialCol].setColorCell(cursor);
+                }
+                initialCol += 1;
+                initialChar += 1;
+            }
+            initialCol = 0;
+            initialRow += 1;
+        }
+    }
+
+    private LinkedList<String> readFile() {
+        LinkedList<String> chars = new LinkedList<>();
 
         try {
-            fileReader = new FileReader("resources/saved.txt");
+            fileReader = new FileReader(FILE_PATH);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             int c;
-            while((c = bufferedReader.read()) != -1){
-                char character = (char) c;
-                System.out.println(character);
-            }
-
-/*
-            System.out.println("col " + bufferedReader.readLine());
-            while (bufferedReader.readLine() != null) {
-                for (int i = 0; i < Grid.rows - 2; i++) {
-                    System.out.println("col " + bufferedReader.readLine());
+            while ((c = bufferedReader.read()) != -1) {
+                String character = String.valueOf((char) c);
+                if (character.equals("1") || character.equals("0")) {
+                    chars.add(character);
                 }
             }
-*/
             bufferedReader.close();
+            System.out.println(chars);
+            return chars;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
-    public void start() {
-        cursor = new Cursor(Grid.PADDING, Grid.PADDING);
-        cursor.setCursorPainted();
-    }
 }
+
